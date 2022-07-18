@@ -1,9 +1,10 @@
 <?php
 
-use GuzzleHttp\Psr7\Message;
+use App\Http\Controllers\LoginController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 // use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Resources\Json\JsonResource;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,11 +17,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['auth:api'])->group(function () {
-    Route::get('/autheduser', function () {
+    Route::get('/authuser', function () {
+        // dd(response());
         return response()->json(auth()->user());
     });   
 });
 
-// Route::get('login', function () {
-//     echo 'Success';
-// })->name('login');
+// Route::get('login', [LoginController::class,'login'])->name('login');

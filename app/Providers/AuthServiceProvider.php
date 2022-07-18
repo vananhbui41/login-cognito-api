@@ -28,7 +28,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Auth:: viaRequest('cognito', function ($request) { 
+        Auth::viaRequest('cognito', function ($request) { 
             $jwt = $request->bearerToken(); 
             $region = env('AWS_REGION','');//must be string 
             $userPoolId = env('AWS_COGNITO_USER_POOL_ID', '');//must be string 
