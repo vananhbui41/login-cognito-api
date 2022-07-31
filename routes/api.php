@@ -17,8 +17,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
 |
 */
 
-Route::middleware(['auth:api'])->group(function () {
-    Route::post('login', [AuthController::class,'login']);
+Route::middleware(['api'])->group(function () {
+    Route::post('login', [AuthController::class,'login'])->name('login');
     Route::post('/logout', [AuthController::class, 'logout']);
     
     Route::get('/user-profile', [AuthController::class, 'userProfile']); 

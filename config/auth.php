@@ -42,7 +42,7 @@ return [
         ],
 
         'api' => [
-            'driver' => 'cognito',
+            'driver' => 'jwt',
             'provider' => 'accounts',
             'hash' => false,
         ]

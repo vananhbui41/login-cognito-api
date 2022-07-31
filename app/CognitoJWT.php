@@ -78,8 +78,11 @@ class CognitoJWT
                 $publicKey = $row->public_key;
             }
             else {
-                $publicKey = static::getPublicKey($kid, $region, $userPoolId);
+                if (! $publicKey = static::getPublicKey($kid, $region, $userPoolId)) {
+                    return NULL;
+                }
                 $row = PublicKey::create(['kid' => $kid, 'public_key' => $publicKey]);
+                // return NULL;
             }
         }
         
