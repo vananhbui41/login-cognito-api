@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'api',
         'passwords' => 'users',
     ],
 
@@ -43,7 +43,7 @@ return [
 
         'api' => [
             'driver' => 'cognito',
-            'provider' => 'users',
+            'provider' => 'accounts',
             'hash' => false,
         ]
     ],
@@ -70,6 +70,11 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+
+        'accounts' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Account::class,
+        ]
 
         // 'users' => [
         //     'driver' => 'database',

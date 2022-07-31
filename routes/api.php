@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -17,10 +18,14 @@ use Illuminate\Http\Resources\Json\JsonResource;
 */
 
 Route::middleware(['auth:api'])->group(function () {
-    Route::get('/authuser', function () {
-        // dd(response());
-        return response()->json(auth()->user());
-    });   
+    Route::post('login', [AuthController::class,'login']);
+    Route::post('/logout', [AuthController::class, 'logout']);
+    
+    Route::get('/user-profile', [AuthController::class, 'userProfile']); 
 });
 
-// Route::get('login', [LoginController::class,'login'])->name('login');
+ 
+
+
+
+

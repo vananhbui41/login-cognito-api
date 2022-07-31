@@ -5,6 +5,7 @@ use phpseclib\Crypt\RSA;
 use phpseclib\Math\BigInteger;
 use App\Models\PublicKey;
 use Firebase\JWT\Key;
+
 class CognitoJWT
 {
     public static function getPublicKey(string $kid, string $region, string $userPoolId): ?string
@@ -54,6 +55,18 @@ class CognitoJWT
         }
         return null;
     }
+
+    public static function getSub(string $jwt): ?string
+    {
+        $tks = explode('.', $jwt);
+        if (count($tks) === 3) {
+            $payload = JWT::jsonDecode(JWT::urlsafeB64Decode($tks[1]));
+            if (isset($payload->sub)) {
+                return $payload->sub;
+            }
+        }
+        return null;
+    }
     
     public static function verifyToken(string $jwt, string $region, string $userPoolId): ?object
     {
@@ -71,7 +84,11 @@ class CognitoJWT
         }
         
         if ($publicKey) {
-            return JWT::decode($jwt, new Key($publicKey, 'RS256'));
+            try {
+                return JWT::decode($jwt, new Key($publicKey, 'RS256'));
+            } catch (\Exception $e) {
+                return NULL;
+            }
         }
         return null;
     }
